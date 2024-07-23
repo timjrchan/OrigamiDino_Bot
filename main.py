@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 import asyncio
 import yfinance as yf
 from dotenv import load_dotenv
@@ -6,11 +7,18 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # Load environment variables from .env file
-load_dotenv()
+load_dotenv(dotenv_path="config.env")
 
 # Load secrets 
 TOKEN = os.getenv('TOKEN')
 BOT_USERNAME = os.getenv('BOT_USERNAME')
+
+# Debugging print statements to verify environment variables are loaded correctly
+print(f"TOKEN: {TOKEN}")
+print(f"BOT_USERNAME: {BOT_USERNAME}")
+
+if TOKEN is None or BOT_USERNAME is None:
+    raise ValueError("TOKEN or BOT_USERNAME is not set. Please check your .env file.")
 
 # Ensure an event loop is available
 if not asyncio.get_event_loop_policy().get_event_loop().is_running():

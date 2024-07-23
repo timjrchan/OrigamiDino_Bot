@@ -1,5 +1,4 @@
-asyncio
-streamlit
-yfinance
 pandas
+yfinance
+python-dotenv
 python-telegram-bot
