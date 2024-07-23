@@ -13,20 +13,12 @@ load_dotenv(dotenv_path="config.env")
 TOKEN = os.getenv('TOKEN')
 BOT_USERNAME = os.getenv('BOT_USERNAME')
 
-# Debugging print statements to verify environment variables are loaded correctly
-print(f"TOKEN: {TOKEN}")
-print(f"BOT_USERNAME: {BOT_USERNAME}")
-
-if TOKEN is None or BOT_USERNAME is None:
-    raise ValueError("TOKEN or BOT_USERNAME is not set. Please check your .env file.")
-
 # Ensure an event loop is available
-if not asyncio.get_event_loop_policy().get_event_loop().is_running():
+try:
+    loop = asyncio.get_running_loop()
+except RuntimeError:  # no event loop currently running
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-else:
-    loop = asyncio.get_event_loop()
-
 
 
 # ------------------------------------------------------------------------------------------#
