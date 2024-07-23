@@ -1,0 +1,5 @@
+asyncio
+streamlit
+yfinance
+pandas
+python-telegram-bot
