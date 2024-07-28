@@ -500,9 +500,9 @@ if __name__ == '__main__':
     # Error
     app.add_error_handler(error)
 
-    loop.run_until_complete(app.initialize())
-    loop.create_task(app.start())
-    loop.run_forever()
+    # loop.run_until_complete(app.initialize())
+    # loop.create_task(app.start())
+    # loop.run_forever()
 
     # Polls the bot
     print('polling...')
