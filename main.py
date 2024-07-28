@@ -5,6 +5,9 @@ import yfinance as yf
 from dotenv import load_dotenv
 from telegram import Update 
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import threading
+import signal
 
 # Load environment variables from .env file
 load_dotenv(dotenv_path="config.env")
@@ -19,6 +22,34 @@ try:
 except RuntimeError:  # no event loop currently running
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
+
+# Function to handle shutdown signals
+def shutdown():
+    for task in asyncio.all_tasks(loop):
+        task.cancel()
+    loop.stop()
+
+# Register signal handlers
+signal.signal(signal.SIGINT, lambda s, f: shutdown())
+signal.signal(signal.SIGTERM, lambda s, f: shutdown())
+
+# Dummy HTTP Server for Health Check
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(b'OK')
+
+def run_http_server():
+    server_address = ('', 8000)
+    httpd = HTTPServer(server_address, HealthCheckHandler)
+    httpd.serve_forever()
+
+# Start the dummy HTTP server in a separate thread
+http_thread = threading.Thread(target=run_http_server)
+http_thread.daemon = True
+http_thread.start()
 
 
 # ------------------------------------------------------------------------------------------#
@@ -468,6 +499,10 @@ if __name__ == '__main__':
 
     # Error
     app.add_error_handler(error)
+
+    loop.run_until_complete(app.initialize())
+    loop.create_task(app.start())
+    loop.run_forever()
 
     # Polls the bot
     print('polling...')
