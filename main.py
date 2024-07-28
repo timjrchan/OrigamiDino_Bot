@@ -159,7 +159,7 @@ def get_currencies():
 
         return [myr_string, usd_string, jpy_string, hkd_string, aud_string]
     except ValueError:
-        return('Please enter a valid number.')
+        return('This function only shows the latest currency data for SGD against MYR, USD, JPY, HKD, and AUD.') 
 
 async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
@@ -210,7 +210,7 @@ def inches_to_cm(inch):
         inch = float(inch)
         if inch >= 0:
             cm = inch * 2.54
-            return (f'{inch} inches is approximately {cm} centimetres.')
+            return (f'{inch} inches is approximately {cm:.2f} centimetres.')
         else:
             return (f'Please enter a non-negative number of inches.')
         
@@ -241,7 +241,7 @@ def miles_to_km(miles):
         miles = float(miles)
         if miles >= 0:
             km = miles * 1.609344
-            return(f'{miles} miles is approximately {km} kilometres.')
+            return(f'{miles} miles is approximately {km:.2f} kilometres.')
         else:
             return ('Please enter a non-negative number of miles.')
     except ValueError:
@@ -270,7 +270,7 @@ def pounds_to_kg(pounds):
         if pounds >= 0:
             kg = pounds * 0.453592
             grams = kg * 1000
-            return(f'{pounds} pounds is approximately {kg} kg or {grams} g.')
+            return(f'{pounds} pounds is approximately {kg:.2f} kg or {grams:.2f} g.')
         else:
             return ('Please enter a non-negative number of pounds.')
     except ValueError:
@@ -299,7 +299,7 @@ def f_ounce_to_ml(founce):
         if founce >= 0:
             ml = founce * 29.5735
             liter = founce / 1000
-            return(f'{founce} fluid ounce(fl.oz) is approximately {liter:.3f} L or {ml:.3f} mL.')
+            return(f'{founce} fluid ounce(fl.oz) is approximately {liter:.2f} L or {ml:.2f} mL.')
         else:
             return('Please enter a non-negative number of fluid ounce.')
     except ValueError:
@@ -329,7 +329,7 @@ def ounce_to_g(ounce):
             grams = ounce * 28.3495
             kilograms = ounce / 35.274
 
-            return(f'{ounce} ounce (oz) is approximately {kilograms:.3f} kg or {grams} g.')
+            return(f'{ounce} ounce (oz) is approximately {kilograms:.2f} kg or {grams:.2f} g.')
         else:
             return('Please enter a non-negative numbers.')
     except ValueError:
@@ -357,7 +357,7 @@ def cup_to_ml(cup):
         cup = float(cup)
         if cup >= 0:
             ml = cup * 236.588
-            return(f'{cup} cup(s) is approximately {ml} mL.')
+            return(f'{cup} cup(s) is approximately {ml:.2f} mL.')
         else:
             return('Please enter a non-negative number.')
     except ValueError:
@@ -385,7 +385,7 @@ def gallon_to_l(gallon):
         gallon = float(gallon)
         if gallon >= 0:
             liters = gallon * 3.78541
-            return(f'{gallon} gallon(s) is approximately {liters:.3f} L.')
+            return(f'{gallon} gallon(s) is approximately {liters:.2f} L.')
         else:
             return('Please enter a non-negative numbers.')
     except ValueError:
@@ -412,7 +412,7 @@ def fahrenheit_to_celcius(fahrenheit):
     try:
         fahrenheit = float(fahrenheit)
         celcius = (fahrenheit-32) * 5/9
-        return (f'{fahrenheit}°F is approximately {celcius}°C.')
+        return (f'{fahrenheit}°F is approximately {celcius:.2f}°C.')
     except ValueError:
         return('Please enter a valid number.')
 
