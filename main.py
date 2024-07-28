@@ -77,6 +77,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
           /cup -> Convert cup to mL
           /gallon -> Convert gallon to L
           /fahrenheit -> Convert Fahrenheit to Celcius
+          /celsius -> Convert Celcius to Fahrenheit
+          /currencies -> Get currency information
                                     ''')
 
 
@@ -108,8 +110,8 @@ async def gallon_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def fahrenheit_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text('I can convert Fahrenheit to Celcius.')
 
-# async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-#     await update.message.reply_text('I can fetch Malaysian Ringgit, U.S Dollars, Japan Yen, HK Dollars, and Australian Dollars relative to 1 SG Dollar.')
+async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text('I can fetch Malaysian Ringgit, U.S Dollars, Japan Yen, HK Dollars, and Australian Dollars relative to 1 SG Dollar.')
 
 # Currency Command Handler
 async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
