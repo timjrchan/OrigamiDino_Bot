@@ -111,7 +111,7 @@ async def fahrenheit_command(update: Update, context: ContextTypes.DEFAULT_TYPE)
     await update.message.reply_text('I can convert Fahrenheit to Celcius.')
 
 async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('I can fetch Malaysian Ringgit, U.S Dollars, Japan Yen, HK Dollars, and Australian Dollars relative to 1 SG Dollar.')
+    await update.message.reply_text('I can fetch Malaysian Ringgit, U.S Dollars, Japan Yen, HK Dollars, Taiwan Dollars,and Australian Dollars relative to 1 SG Dollar.')
 
 # Currency Command Handler
 async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -141,7 +141,7 @@ def handle_response(text: str) -> str:
 # Fetch currency data from yfinance
 def get_currencies():
     try :
-        currencies = ['SGDMYR=X', 'SGDUSD=X', 'SGDJPY=X', 'SGDHKD=X', 'SGDAUD=X'] # MYR, USD, JPY, HKD, AUD
+        currencies = ['SGDMYR=X', 'SGDUSD=X', 'SGDJPY=X', 'SGDHKD=X', 'SGDAUD=X', 'SGDTWD=X'] # MYR, USD, JPY, HKD, AUD, TWD
         data = yf.download(tickers= currencies, period = '1d')
 
         latest_currency_data = data['Close'].iloc[-1]
@@ -150,16 +150,18 @@ def get_currencies():
         jpy = latest_currency_data['SGDJPY=X'].round(3)
         hkd = latest_currency_data['SGDHKD=X'].round(3)
         aud = latest_currency_data['SGDAUD=X'].round(3)
+        twd = latest_currency_data['SGDTWD=X'].round(3)
 
         myr_string = f'1 SGD is equal to {myr} RM.'
         usd_string = f'1 SGD is equal to {usd} USD.'
         jpy_string = f'1 SGD is equal to {jpy} YEN.'
         hkd_string = f'1 SGD is equal to {hkd} HKD.'
         aud_string = f'1 SGD is equal to {aud} AUD.'
+        twd_string = f'1 SGD is equal to {twd} TWD.'
 
-        return [myr_string, usd_string, jpy_string, hkd_string, aud_string]
+        return [myr_string, usd_string, jpy_string, hkd_string, twd_string, aud_string]
     except ValueError:
-        return('This function only shows the latest currency data for SGD against MYR, USD, JPY, HKD, and AUD.') 
+        return('This function only shows the latest currency data for SGD against MYR, USD, JPY, HKD, TWD, and AUD.') 
 
 async def currencies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
